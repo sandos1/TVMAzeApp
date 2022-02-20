@@ -8,6 +8,9 @@ import com.sandona.tvmazeapp.databinding.MovieAdapterLayoutBinding
 import com.sandona.tvmazeapp.domain.model.MovieResponse
 
 class MovieAdapter(private val listOfMovie: MutableList<MovieResponse> = mutableListOf()) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
+    lateinit var onclick: (movie: MovieResponse) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             MovieAdapterLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,6 +20,9 @@ class MovieAdapter(private val listOfMovie: MutableList<MovieResponse> = mutable
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = listOfMovie.get(position)
         holder.bind(movie)
+        holder.itemView.setOnClickListener {
+            onclick(movie)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +43,7 @@ class MovieAdapter(private val listOfMovie: MutableList<MovieResponse> = mutable
             binding.let {
                 it.name.text = data.name
                 Glide.with(it.TVImage.context)
-                    .load(data.image.original)
+                    .load(data.imageUrl)
                     .into(it.TVImage)
             }
         }

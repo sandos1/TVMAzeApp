@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sandona.tvmazeapp.domain.model.MovieResponse
 import com.sandona.tvmazeapp.domain.repository.MovieRepository
 import com.sandona.tvmazeapp.domain.repository.TAG
+import com.sandona.tvmazeapp.utils.Converter.toMovie
 import com.sandona.tvmazeapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,14 +25,13 @@ class MovieViewModel @Inject constructor(private val repository: MovieRepository
 
         viewModelScope.launch(Dispatchers.IO) {
             _movieListLiveData.postValue(Resource.loading(listOf()))
-            repository.allMovieList().collect { response ->
-
-                if (response.isSuccessful) {
-                    _movieListLiveData.postValue(Resource.success(response.body()))
-                } else {
-                    Log.d(TAG, "network failure")
-                    _movieListLiveData.postValue(Resource.error(listOf(), message = "network failure"))
-                }
+            _movieListLiveData.postValue(Resource.loading(listOf()))
+            val response = repository.allMovieList()
+            if (response.isSuccessful) {
+                _movieListLiveData.postValue(Resource.success(response.body()?.toMovie()))
+            } else {
+                Log.d(TAG, "network failure")
+                _movieListLiveData.postValue(Resource.error(data = null, message = "netWork failure"))
             }
         }
     }
