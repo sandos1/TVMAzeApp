@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">TVMAzeApp</string>
-    <string name="name">Hello Soro</string>
+    <string name="name">hello soro</string>
+    <string name="nameLabel">Name: </string>
+    <string name="languageLabel">Language: </string>
+    <string name="typeLabel">Type: </string>
     <string name="error">something went wrong. try again</string>
     <string name="itemClick">movie %s was selected</string>
 </resources>

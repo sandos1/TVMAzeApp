@@ -12,7 +12,9 @@ object Converter {
             MovieResponse(
                 id = it.id,
                 imageUrl = it.image?.original,
-                name = it.name
+                name = it.name,
+                language = it.language,
+                type  = it.type
             )
         }
     }
