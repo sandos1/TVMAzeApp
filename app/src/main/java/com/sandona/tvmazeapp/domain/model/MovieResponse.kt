@@ -19,3 +19,4 @@ data class MovieDetails(
     val language: String?,
     val genre: String?
 )
+

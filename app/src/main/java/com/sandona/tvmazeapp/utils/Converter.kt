@@ -14,7 +14,7 @@ object Converter {
                 imageUrl = it.image?.original,
                 name = it.name,
                 language = it.language,
-                type  = it.type
+                type = it.type
             )
         }
     }

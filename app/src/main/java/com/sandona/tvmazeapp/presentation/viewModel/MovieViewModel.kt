@@ -27,13 +27,15 @@ class MovieViewModel @Inject constructor(private val useCase: MovieListUseCase) 
         viewModelScope.launch(Dispatchers.IO) {
             _movieListLiveData.postValue(Resource.loading(listOf()))
             _movieListLiveData.postValue(Resource.loading(listOf()))
-            val response = useCase.invoke()
-            if (!response.isNullOrEmpty()) {
-                _movieListLiveData.postValue(Resource.success(response))
-            } else {
-                Log.d(TAG, "network failure")
-                _movieListLiveData.postValue(Resource.error(data = null, message = "netWork failure"))
+            useCase.invoke().collect{ movieList ->
+                if (!movieList.isNullOrEmpty()) {
+                    _movieListLiveData.postValue(Resource.success(movieList))
+                } else {
+                    Log.d(TAG, "network failure")
+                    _movieListLiveData.postValue(Resource.error(data = null, message = "netWork failure"))
+                }
             }
+
         }
     }
 }
