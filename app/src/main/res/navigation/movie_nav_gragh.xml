@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/showMovieFragment">
+
+    <fragment
+        android:id="@+id/showMovieFragment"
+        android:name="com.sandona.tvmazeapp.presentation.fragment.ShowMovieFragment"
+        android:label="ShowMovieFragment" >
+        <action
+            android:id="@+id/action_showMovieFragment_to_showMovieDetailFragment"
+            app:destination="@id/showMovieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showMovieDetailFragment"
+        android:name="com.sandona.tvmazeapp.presentation.fragment.ShowMovieDetailFragment"
+        android:label="ShowMovieDetailFragment" >
+        <action
+            android:id="@+id/action_showMovieDetailFragment_to_showMovieFragment"
+            app:destination="@id/showMovieFragment"
+            app:popUpTo="@id/showMovieFragment" />
+        <argument
+            android:name="movieDetails"
+            app:argType="com.sandona.tvmazeapp.domain.model.MovieResponse" />
+    </fragment>
+</navigation>
